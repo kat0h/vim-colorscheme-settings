@@ -5,7 +5,7 @@ Colorscheme manager for Vim
 - Set colorschemes *interactive*.
 
 # Todo
-- [ ] VS Code Like colorschemes selector.
+- [ ] VS Code Like colorscheme selector.
 - [ ] Change colorscheme automatically (for example if it is night set dark theme)
 
 # Note
