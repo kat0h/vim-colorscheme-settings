@@ -17,6 +17,8 @@ function! colorschemes_settings#selectColorscheme() abort
   " Init Popup
   let s:popUpWindow = popup_create("", #{
         \padding: [1, 1, 1, 1],
+        \line: winheight(winnr()),
+        \col: winwidth(winnr()),
         \pos: "botright",
         \minwidth: 15,
         \maxwidth: 15,
