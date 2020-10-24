@@ -11,3 +11,6 @@ Colorscheme manager for Vim
 # Note
 My English has been broken.
 If you find any mistakes in the readme, please let me know.
+
+# Author
+Kota Kato
