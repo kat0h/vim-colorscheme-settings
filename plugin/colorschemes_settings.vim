@@ -15,7 +15,7 @@ function! colorschemes_settings#selectColorscheme() abort
         \}
 
   " Init Popup
-  let s:popUpWindow = popup_create("", #{
+  let g:popUpWindow = popup_create("", #{
         \padding: [1, 1, 1, 1],
         \line: winheight(winnr()),
         \col: winwidth(winnr()),
@@ -24,10 +24,22 @@ function! colorschemes_settings#selectColorscheme() abort
         \maxwidth: 15,
         \filter: function('s:selectColorschemeFilter', [col]),
         \cursorline: 1,
+        \zindex: 1000,
         \})
-  call popup_settext(s:popUpWindow, s:colors)
+  call popup_settext(g:popUpWindow, s:colors)
+
+  augroup colorschemes_setting
+    autocmd!
+    autocmd VimResized * call colorschemes_settings#vimResized()
+  augroup END
 endfunction
 
+function! s:PopupClosed() abort
+  unlet g:popUpWindow
+  augroup colorschemes_setting
+    autocmd!
+  augroup END
+endfunction
 
 " キー入力ごとに色を変更（初めの選択は反映されない(実装してない)）
 function! s:selectColorschemeFilter(col, winid, key) abort
@@ -48,7 +60,16 @@ function! s:selectColorschemeFilter(col, winid, key) abort
   return popup_filter_menu(a:winid, a:key)
 endfunction
 
+function! colorschemes_settings#vimResized() abort
+  call popup_setoptions(g:popUpWindow, #{
+        \line: winheight(winnr()),
+        \col: winwidth(winnr()),
+        \})
+endfunction
+
 command! ColorSchemeSelect call colorschemes_settings#selectColorscheme()
+
+
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
