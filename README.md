@@ -10,7 +10,7 @@ Colorscheme manager for Vim
 
 # Note
 My English is broken.
-If you find any mistakes in the readme, please let me know.
+If you find any mistakes in the readme or document, please let me know.
 
 # Author
 Kota Kato
