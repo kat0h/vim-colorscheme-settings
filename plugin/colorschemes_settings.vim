@@ -2,16 +2,25 @@
 function! colorschemes_settings#selectColorscheme()
   " Get Colorschemes
   let s:colors = getcompletion("", "color")
+  call remove(s:colors, match(s:colors, g:colors_name))
+  call insert(s:colors, g:colors_name)
+
   " 選択しているいろを保持
   let col = {
         \ 'id': 0,
         \ 'colors': s:colors,
         \}
+
   " Init Popup
-  let s:popUpWindow = popup_menu("", #{
+  let s:popUpWindow = popup_create("", #{
         \border: [1, 1, 1, 1],
+        \minheight: 10,
         \maxheight: 10,
-        \filter: function('s:selectColorschemeFilter', [col])
+        \minwidth: 15,
+        \maxwidth: 15,
+        \filter: function('s:selectColorschemeFilter', [col]),
+        \close: "button",
+        \cursorline: 1,
         \})
   call popup_settext(s:popUpWindow, s:colors)
 endfunction
