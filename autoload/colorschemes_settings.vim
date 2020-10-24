@@ -6,6 +6,9 @@ set cpo&vim
 function! colorschemes_settings#selectColorscheme() abort
   " Get Colorschemes
   let s:colors = getcompletion("", "color")
+  if !exists("g:colors_name")
+    let g:colors_name = "default"
+  endif
   call remove(s:colors, match(s:colors, g:colors_name))
   call insert(s:colors, g:colors_name)
   " 選択しているいろを保持
