@@ -1,5 +1,8 @@
+let s:save_cpo = &cpo
+set cpo&vim
+
 " ウィンドウを表示
-function! colorschemes_settings#selectColorscheme()
+function! colorschemes_settings#selectColorscheme() abort
   " Get Colorschemes
   let s:colors = getcompletion("", "color")
   call remove(s:colors, match(s:colors, g:colors_name))
@@ -13,13 +16,11 @@ function! colorschemes_settings#selectColorscheme()
 
   " Init Popup
   let s:popUpWindow = popup_create("", #{
-        \border: [1, 1, 1, 1],
-        \minheight: 10,
-        \maxheight: 10,
+        \padding: [1, 1, 1, 1],
+        \pos: "botright",
         \minwidth: 15,
         \maxwidth: 15,
         \filter: function('s:selectColorschemeFilter', [col]),
-        \close: "button",
         \cursorline: 1,
         \})
   call popup_settext(s:popUpWindow, s:colors)
@@ -27,7 +28,7 @@ endfunction
 
 
 " キー入力ごとに色を変更（初めの選択は反映されない(実装してない)）
-function! s:selectColorschemeFilter(col, winid, key)
+function! s:selectColorschemeFilter(col, winid, key) abort
   let l:beforeColor = a:col.id
 
   " キーに応じた処理
@@ -46,3 +47,6 @@ function! s:selectColorschemeFilter(col, winid, key)
 endfunction
 
 command! ColorSchemeSelect call colorschemes_settings#selectColorscheme()
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
