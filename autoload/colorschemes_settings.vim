@@ -35,6 +35,7 @@ function! colorschemes_settings#selectColorscheme() abort
   let col = {
         \ 'id': 0,
         \ 'colors': s:colors,
+        \ 'write' : v:false
         \}
   " Init Popup
   let g:popUpWindow = popup_create("", #{
@@ -44,9 +45,10 @@ function! colorschemes_settings#selectColorscheme() abort
         \pos: "botright",
         \minwidth: 15,
         \maxwidth: 15,
-        \filter: function('s:selectColorschemeFilter', [col]),
+        \filter: function('s:SelectColorschemeFilter', [col]),
         \cursorline: 1,
         \zindex: 1000,
+        \callback: function('s:PopupClosed', [col]),
         \})
   call popup_settext(g:popUpWindow, s:colors)
   " ウィンドウの端を追従
@@ -65,8 +67,23 @@ function! colorschemes_settings#vimResized() abort
 endfunction
 
 
-function! s:PopupClosed() abort
+func s:EndDialog(col, id, result) abort
+  if a:result
+    if exists("g:colorscheme_settings#colorrc_path")
+      call writefile([a:col.colors[a:col.id]], g:colorscheme_settings#colorrc_path)
+    endif
+  endif
+endfunction
+
+
+function! s:PopupClosed(col, i, j) abort
   unlet g:popUpWindow
+  if (a:col.write == v:true)
+    call popup_dialog('Save to 《'.g:colorscheme_settings#colorrc_path.'》? y/n', #{
+          \ filter: 'popup_filter_yesno',
+          \ callback: function('s:EndDialog', [a:col]),
+          \})
+  endif
   augroup colorschemes_setting
     autocmd!
   augroup END
@@ -74,13 +91,15 @@ endfunction
 
 
 " キー入力ごとに色を変更（初めの選択は反映されない(実装してない)）
-function! s:selectColorschemeFilter(col, winid, key) abort
+function! s:SelectColorschemeFilter(col, winid, key) abort
   let l:beforeColor = a:col.id
   " キーに応じた処理
   if (a:key is# "j") || (a:key is# "\<down>")
     let a:col.id = min([a:col.id+1, len(a:col.colors)-1])
   elseif (a:key is# "k") || (a:key is# "\<up>")
     let a:col.id = max([a:col.id-1, 0])
+  elseif (a:key is# "\<C-m>")
+    let a:col.write = v:true
   endif
   " 初めののインデックスと同じでないなら変更しない
   if l:beforeColor != a:col.id
