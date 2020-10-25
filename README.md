@@ -15,4 +15,4 @@ My English is broken.
 If you find any mistakes in the readme or document, please let me know.
 
 # Author
-Kota Kato
+Kota Kato a.k.a kato-k
