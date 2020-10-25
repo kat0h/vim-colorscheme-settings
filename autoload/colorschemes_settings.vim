@@ -17,6 +17,7 @@ function s:getcolorscheme(isShowDefault) abort
         \"evening", "industry", "koehler", "morning", "murphy", "pablo",
         \"peachpuff", "ron", "shine", "slate", "torte", "zellner"]
   let l:ret = getcompletion("", "color")
+  echo a:isShowDefault
   if (!a:isShowDefault)
     for l:i in range(len(l:default_color))
       let l:j = l:ret->index(l:default_color[l:i])
@@ -26,7 +27,7 @@ function s:getcolorscheme(isShowDefault) abort
     endfor
   endif
   " 設定されている色設定をトップに
-  call remove(l:ret, match(s:colors, l:nowColor))
+  call remove(l:ret, match(l:ret, l:nowColor))
   call insert(l:ret, l:nowColor)
   return l:ret
 endfunction
