@@ -4,18 +4,29 @@ Select colorschemes like VSCode
 
 ==============================================================================
 CONTENTS
-  1. COMMANDS...................................|colorscheme_settings_commans|
-  2. ABOUT......................................|colorscheme_settings_about|
+  1. COMMANDS.....................................|colorscheme_settings_commans|
+  2. ABOUT..........................................|colorscheme_settings_about|
+  3. OPTIONS......................................|colorscheme_settings_options|
 
 
 ==============================================================================
 COMMANDS	*colorscheme_settings_commans*
 
 *:ColorSchemeSelect*
-	Open colorscheme selector window
+	Open colorscheme a selector window
 	You can move with jk or <up><down>
 	Hit Enter to escape popupwindow
 
+==============================================================================
+OPTIONS	*colorscheme_settings_options*
+
+*g:colorscheme_settings#colorrc_path*
+	When close a selection window
+	Save your changes to a this file path
+
+*g:colorscheme_settings#isShowDefaultColorscheme*
+	Include default color scheme in selection window
+	v:true or v:false
 
 ==============================================================================
 ABOUT	*colorscheme_settings_about*
