@@ -1,21 +1,6 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-" function! g:colorschemes_settings#setcolorscheme() abort
-"   if !exists("g:colorscheme_settings#configFilePath")
-"     let l:path = $HOME.'/.vim/colorscheme_settings.conf'
-"   else
-"     let l:path = g:colorscheme_settings#configFilePath
-"   endif
-"   if filereadable(l:path)
-"     let l:colorschemename = readfile(l:path)[0]
-"     " 予期しないコードの実行を防ぐ(多分)
-"     if getcompletion("", "color")->index(l:colorschemename)!=-1
-"       execute "colorscheme " l:colorschemename
-"     endif
-"   endif
-" endfunction
-
 
 function s:getcolorscheme() abort
   if !exists("g:colors_name")
