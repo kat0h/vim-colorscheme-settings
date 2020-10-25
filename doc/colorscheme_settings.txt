@@ -12,7 +12,7 @@ CONTENTS
 COMMANDS	*colorscheme_settings_commans*
 
 *:ColorSchemeSelect*
-	Open colorscheme selector
+	Open colorscheme selector window
 	You can move with jk or <up><down>
 	Hit Enter to escape popupwindow
 
