@@ -1,12 +1,23 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! colorschemes_settings#setcolorscheme(filepath) abort
+" function! g:colorschemes_settings#setcolorscheme() abort
+"   if !exists("g:colorscheme_settings#configFilePath")
+"     let l:path = $HOME.'/.vim/colorscheme_settings.conf'
+"   else
+"     let l:path = g:colorscheme_settings#configFilePath
+"   endif
+"   if filereadable(l:path)
+"     let l:colorschemename = readfile(l:path)[0]
+"     " 予期しないコードの実行を防ぐ(多分)
+"     if getcompletion("", "color")->index(l:colorschemename)!=-1
+"       execute "colorscheme " l:colorschemename
+"     endif
+"   endif
+" endfunction
 
-endfunction
 
-
-function s:getcolorscheme(isShowDefault) abort
+function s:getcolorscheme() abort
   if !exists("g:colors_name")
     let l:nowColor = "default"
   else
@@ -17,8 +28,7 @@ function s:getcolorscheme(isShowDefault) abort
         \"evening", "industry", "koehler", "morning", "murphy", "pablo",
         \"peachpuff", "ron", "shine", "slate", "torte", "zellner"]
   let l:ret = getcompletion("", "color")
-  echo a:isShowDefault
-  if (!a:isShowDefault)
+  if (!g:colorscheme_settings#isShowDefaultColorscheme)
     for l:i in range(len(l:default_color))
       let l:j = l:ret->index(l:default_color[l:i])
       if (l:j != -1)
@@ -35,7 +45,7 @@ endfunction
 " ウィンドウを表示
 function! colorschemes_settings#selectColorscheme() abort
   " Get Colorschemes
-  let s:colors = s:getcolorscheme(g:colorscheme_settings#isShowDefaultColorscheme)
+  let s:colors = s:getcolorscheme()
   " 選択している色を保持
   let col = {
         \ 'id': 0,
