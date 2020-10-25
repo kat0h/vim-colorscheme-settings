@@ -1,17 +1,41 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
+function! colorschemes_settings#setcolorscheme(filepath) abort
+
+endfunction
+
+
+function s:getcolorscheme(isShowDefault) abort
+  if !exists("g:colors_name")
+    let l:nowColor = "default"
+  else
+    let l:nowColor = g:colors_name
+  endif
+  let l:default_color = [
+        \"blue", "darkblue", "default", "delek", "desert", "elflord",
+        \"evening", "industry", "koehler", "morning", "murphy", "pablo",
+        \"peachpuff", "ron", "shine", "slate", "torte", "zellner"]
+  let l:ret = getcompletion("", "color")
+  if (!a:isShowDefault)
+    for l:i in range(len(l:default_color))
+      let l:j = l:ret->index(l:default_color[l:i])
+      if (l:j != -1)
+        call remove(l:ret, l:j)
+      endif
+    endfor
+  endif
+  " 設定されている色設定をトップに
+  call remove(l:ret, match(s:colors, l:nowColor))
+  call insert(l:ret, l:nowColor)
+  return l:ret
+endfunction
 
 " ウィンドウを表示
 function! colorschemes_settings#selectColorscheme() abort
   " Get Colorschemes
-  let s:colors = getcompletion("", "color")
-  if !exists("g:colors_name")
-    let g:colors_name = "default"
-  endif
-  call remove(s:colors, match(s:colors, g:colors_name))
-  call insert(s:colors, g:colors_name)
-  " 選択しているいろを保持
+  let s:colors = s:getcolorscheme(g:colorscheme_settings#isShowDefaultColorscheme)
+  " 選択している色を保持
   let col = {
         \ 'id': 0,
         \ 'colors': s:colors,
@@ -29,10 +53,19 @@ function! colorschemes_settings#selectColorscheme() abort
         \zindex: 1000,
         \})
   call popup_settext(g:popUpWindow, s:colors)
+  " ウィンドウの端を追従
   augroup colorschemes_setting
     autocmd!
     autocmd VimResized * call colorschemes_settings#vimResized()
   augroup END
+endfunction
+
+
+function! colorschemes_settings#vimResized() abort
+  call popup_setoptions(g:popUpWindow, #{
+        \line: winheight(winnr()),
+        \col: winwidth(winnr()),
+        \})
 endfunction
 
 
@@ -53,19 +86,11 @@ function! s:selectColorschemeFilter(col, winid, key) abort
   elseif (a:key is# "k") || (a:key is# "\<up>")
     let a:col.id = max([a:col.id-1, 0])
   endif
-  " 初めのいろのインデックスと同じでないなら変更しない
+  " 初めののインデックスと同じでないなら変更しない
   if l:beforeColor != a:col.id
     execute "colorscheme ".a:col.colors[a:col.id]
   endif
   return popup_filter_menu(a:winid, a:key)
-endfunction
-
-
-function! colorschemes_settings#vimResized() abort
-  call popup_setoptions(g:popUpWindow, #{
-        \line: winheight(winnr()),
-        \col: winwidth(winnr()),
-        \})
 endfunction
 
 

@@ -7,6 +7,7 @@ if !has('patch-8.1.1575')
   finish
 endif
 
+let g:colorscheme_settings#isShowDefaultColorscheme = v:false
 
 command! ColorSchemeSelect call colorschemes_settings#selectColorscheme()
 
