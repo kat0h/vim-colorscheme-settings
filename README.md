@@ -9,6 +9,7 @@ Colorscheme manager for Vim
 - [x] Save Slected colorscheme and load when vim is opened
 - [x] ignore default colorscheme (if you don't like default colorscheme, you can remove it from selecting window)
 - [ ] Change colorscheme automatically (for example if it is night set dark theme)
+- [ ] Cleanig code
 
 # Note
 My English is broken.
