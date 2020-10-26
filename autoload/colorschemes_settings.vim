@@ -30,7 +30,9 @@ function s:getcolorschemes() abort
     endfor
   endif
   " 設定されている色設定をトップに
-  call remove(l:ret, match(l:ret, l:nowColor))
+  if (match(l:ret, l:nowColor) != -1)
+    call remove(l:ret, match(l:ret, l:nowColor))
+  endif
   call insert(l:ret, l:nowColor)
   return l:ret
 endfunction
