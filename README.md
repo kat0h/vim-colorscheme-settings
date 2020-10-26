@@ -26,8 +26,8 @@ example:
 if you want to set option when Vim starts. write this code to your .vimrc  
   ```
   let s:colorrcpath = $HOME . "/.vim/colorrc.vim"
-if filereadable(s:colorrc_path)
-  execute "source" s:colorrc_path
+if filereadable(s:colorrcpath)
+  execute "source" s:colorrcpath
 endif
 ```
 
