@@ -7,8 +7,8 @@ if !has('patch-8.1.1575')
   finish
 endif
 
-command! ColorSchemeSelect call colorschemes_settings#selectColorscheme()
-command! BackGroundSelect  call colorschemes_settings#selectBackGround()
+command! SwitchColor call colorschemes_settings#selectColorscheme()
+command! SwitchBack  call colorschemes_settings#selectBackGround()
 
 " let g:colorscheme_settings#colorrc_path
 
