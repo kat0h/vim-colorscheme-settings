@@ -1,5 +1,5 @@
 # Vim Colorscheme Settings 🎨
-Colorscheme manager for Vim
+Colorscheme switcher for Vim
 
 ## Function
 - Change colorschemes *interactive*.
