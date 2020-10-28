@@ -14,14 +14,14 @@ endfunction
 
 
 " Vimに設定されている色を返す
-function s:getcolorschemes() abort
+function s:getcolorschemes(retDefColor) abort
   let l:nowColor = s:getNowColor()
-  let l:default_color = [
-        \"blue", "darkblue", "default", "delek", "desert", "elflord",
-        \"evening", "industry", "koehler", "morning", "murphy", "pablo",
-        \"peachpuff", "ron", "shine", "slate", "torte", "zellner"]
   let l:ret = getcompletion("", "color")
-  if (!g:colorscheme_settings#isShowDefaultColorscheme)
+  if (!a:retDefColor)
+    let l:default_color = [
+          \"blue", "darkblue", "default", "delek", "desert", "elflord",
+          \"evening", "industry", "koehler", "morning", "murphy", "pablo",
+          \"peachpuff", "ron", "shine", "slate", "torte", "zellner"]
     for l:i in range(len(l:default_color))
       let l:j = l:ret->index(l:default_color[l:i])
       if (l:j != -1)
@@ -41,7 +41,9 @@ endfunction
 " ウィンドウを表示
 function! colorschemes_settings#selectColorscheme() abort
   " Get Colorschemes
-  let s:colors = s:getcolorschemes()
+  let s:colors = s:getcolorschemes(
+        \g:colorscheme_settings#isShowDefaultColorscheme
+        \)
   " 選択している色を保持
   let col = {
         \ 'id': 0,
@@ -93,7 +95,7 @@ function! s:SelectColorschemeFilter(col, winid, key) abort
     let a:col.id = min([a:col.id+1, len(a:col.colors)-1])
   elseif (a:key is# "k") || (a:key is# "\<up>")
     let a:col.id = max([a:col.id-1, 0])
-  elseif (a:key is# "\<C-m>")
+  elseif (a:key is# "\<C-m>") || (a:key is# "\<space>")
     let a:col.write = v:true
   endif
   " 初めののインデックスと同じでないなら変更しない
