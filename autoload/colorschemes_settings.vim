@@ -2,46 +2,9 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-" 設定されている色を返す
-function! s:getNowColor() abort
-  if !exists("g:colors_name")
-    let l:nowColor = "default"
-  else
-    let l:nowColor = g:colors_name
-  endif
-  return l:nowColor
-endfunction
-
-
-" Vimに設定されている色を返す
-function s:getcolorschemes(retDefColor) abort
-  let l:nowColor = s:getNowColor()
-  let l:ret = getcompletion("", "color")
-  if (!a:retDefColor)
-    let l:default_color = [
-          \"blue", "darkblue", "default", "delek", "desert", "elflord",
-          \"evening", "industry", "koehler", "morning", "murphy", "pablo",
-          \"peachpuff", "ron", "shine", "slate", "torte", "zellner"]
-    for l:i in range(len(l:default_color))
-      let l:j = l:ret->index(l:default_color[l:i])
-      if (l:j != -1)
-        call remove(l:ret, l:j)
-      endif
-    endfor
-  endif
-  " 設定されている色設定をトップに
-  if (match(l:ret, l:nowColor) != -1)
-    call remove(l:ret, match(l:ret, l:nowColor))
-  endif
-  call insert(l:ret, l:nowColor)
-  return l:ret
-endfunction
-
-
-" ウィンドウを表示
 function! colorschemes_settings#selectColorscheme() abort
   " Get Colorschemes
-  let s:colors = s:getcolorschemes(
+  let l:colors = s:getcolorschemes(
         \g:colorscheme_settings#isShowDefaultColorscheme
         \)
   " 選択している色を保持
@@ -51,7 +14,7 @@ function! colorschemes_settings#selectColorscheme() abort
         \ 'write' : v:false
         \}
   " Init Popup
-  let g:popUpWindow = popup_create("", #{
+  let l:popUpWindow = popup_create("", #{
         \padding: [1, 1, 1, 1],
         \line: winheight(winnr()),
         \col: winwidth(winnr()),
@@ -63,11 +26,12 @@ function! colorschemes_settings#selectColorscheme() abort
         \zindex: 1000,
         \callback: function('s:PopupClosed', [col]),
         \})
+  let g:popUpWindow = l:popUpWindow
   call popup_settext(g:popUpWindow, s:colors)
   " ウィンドウの端を追従
   augroup colorschemes_setting
     autocmd!
-    autocmd VimResized * call colorschemes_settings#vimResized()
+    autocmd VimResized * call function("colorschemes_settings#winPosition", [l:popUpWindow])
   augroup END
 endfunction
 
@@ -107,8 +71,8 @@ endfunction
 
 
 " ウィンドウがリサイズされた時に追従する
-function! colorschemes_settings#vimResized() abort
-  call popup_setoptions(g:popUpWindow, #{
+function! colorschemes_settings#winPosition(winid) abort
+  call popup_setoptions(a:winid, #{
         \line: winheight(winnr()),
         \col: winwidth(winnr()),
         \})
@@ -123,7 +87,7 @@ function! colorschemes_settings#selectBackGround() abort
         \write: 0,
         \}
   " Init Popup
-  let g:popUpWindow = popup_create("", #{
+  let l:popUpWindow = popup_create("", #{
         \padding: [1, 1, 1, 1],
         \line: winheight(winnr()),
         \col: winwidth(winnr()),
@@ -135,11 +99,12 @@ function! colorschemes_settings#selectBackGround() abort
         \zindex: 1000,
         \callback: function('s:selectBackgroundClosed', [bak]),
         \})
+  let g:popUpWindow = l:popUpWindow
   call popup_settext(g:popUpWindow, ["Dark", "Light"])
   " ウィンドウの端を追従
   augroup colorschemes_setting
     autocmd!
-    autocmd VimResized * call colorschemes_settings#vimResized()
+    autocmd VimResized * call function("colorschemes_settings#winPosition", [l:popUpWindow])
   augroup END
 endfunction
 
@@ -195,6 +160,42 @@ function! s:EndDialog(id, result) abort
       call s:save_setting(g:colorscheme_settings#colorrc_path)
     endif
   endif
+endfunction
+
+
+" 設定されている色を返す
+function! s:getNowColor() abort
+  if !exists("g:colors_name")
+    let l:nowColor = "default"
+  else
+    let l:nowColor = g:colors_name
+  endif
+  return l:nowColor
+endfunction
+
+
+" Vimに設定されている色を返す
+function s:getcolorschemes(retDefColor) abort
+  let l:nowColor = s:getNowColor()
+  let l:ret = getcompletion("", "color")
+  if (!a:retDefColor)
+    let l:default_color = [
+          \"blue", "darkblue", "default", "delek", "desert", "elflord",
+          \"evening", "industry", "koehler", "morning", "murphy", "pablo",
+          \"peachpuff", "ron", "shine", "slate", "torte", "zellner"]
+    for l:i in range(len(l:default_color))
+      let l:j = l:ret->index(l:default_color[l:i])
+      if (l:j != -1)
+        call remove(l:ret, l:j)
+      endif
+    endfor
+  endif
+  " 設定されている色設定をトップに
+  if (match(l:ret, l:nowColor) != -1)
+    call remove(l:ret, match(l:ret, l:nowColor))
+  endif
+  call insert(l:ret, l:nowColor)
+  return l:ret
 endfunction
 
 
