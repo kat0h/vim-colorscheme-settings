@@ -4,11 +4,65 @@ set cpo&vim
 
 let s:popup_width = 15
 
-function! colorschemes_settings#switch_colorscheme(
+" 色設定ウィンドウ
+function! g:colorschemes_settings#switch_colorscheme(
       \use_default_colorschemes, callback=''
       \) abort
   let l:colorschemes = s:get_vim_colorschemes(a:use_default_colorschemes)
+  let l:popup_var = #{
+        \color_id: 0,
+        \vim_colorschemes: l:colorschemes,
+        \changed_color: v:false,
+        \status: v:true,
+        \}
+  let popup_id = popup_create("", #{
+        \padding: [1, 1, 1, 1],
+        \pos: "botright",
+        \cursorline: 1,
+        \zindex: 1000,
+        \maxwidth: s:popup_width,
+        \minwidth: s:popup_width,
+        \filter: function("s:switch_colorscheme_filter", [l:popup_var]),
+        \})
+        " \callback: function("s:switch_colorscheme_callback", [l:popup_var]),
+  call s:popup_set_pos(l:popup_id)
+  call popup_settext(l:popup_id, l:popup_var.vim_colorschemes)
+  execute "augroup colorscheme_settings" .. string(l:popup_id)
+    autocmd!
+    autocmd VimResized * call function("popup_set_pos")
+  augroup END
 endfunction
+
+function! s:switch_colorscheme_filter(popup_var, winid, key) abort
+  if (a:key is# "j") || (a:key is# "\<down")
+    let a:popup_var.color_id = min(
+          \[
+          \a:popup_var.color_id+1,
+          \len(a:popup_var.vim_colorschemes)-1,
+          \])
+  elseif (a:key is# "k") || (a:key is# "\<up>")
+    let a:popup_var.color_id = max([
+          \a:popup_var.color_id-1,
+          \0,
+          \])
+  elseif (a:key is# "\<C-m>") || (a:key is# "\<CR>") ||
+        \(a:key is# "\<space>")
+    let a:popup_var.changed_color = v:true
+  elseif (a:key is# "x") || (a:key is#"\<C-[>")
+    let a:popup_var.status = v:false
+  endif
+  execute "colorscheme " ..
+        \a:popup_var.vim_colorschemes[a:popup_var.color_id]
+  return popup_filter_menu(a:winid, a:key)
+endfunction
+
+function! s:popup_set_pos(winid) abort
+  call popup_setoptions(a:winid, #{
+        \line: winheight(winnr()),
+        \col: winwidth(winnr()),
+        \})
+endfunction
+
 
 function! s:get_vim_colorschemes(use_default_colorschemes) abort
   let l:nowcolor = s:get_colors_name()
