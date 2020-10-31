@@ -5,9 +5,9 @@ Colorscheme switcher for Vim
 - Change colorschemes *interactive*.
 
 ## NOTICE ⚠️
-This plugin is DEVELOPING now.
-You can use ```:SwitchColor``` command.
-I plan to complete this plugin in a few days
+This plugin is DEVELOPING now.  
+You can use ```:SwitchColor``` command.  
+I plan to complete this plugin in a few days  
 
 ## How To Use
 
@@ -47,15 +47,15 @@ endif
 
 
 ## ScreenShot
-![screen](https://github.com/kato-k/assets/blob/master/render1603724148552.gif)
+![screen](https://github.com/kato-k/assets/blob/master/render1603724148552.gif)  
 
 ## Note
-My English is broken.
-If you find any mistakes in the readme or document, please let me know.
+My English is broken.  
+If you find any mistakes in the readme or document, please let me know.  
 
 ## License
 
-MIT
+MIT  
 
 ## Author
-Kota Kato a.k.a kato-k
+Kota Kato a.k.a kato-k  
