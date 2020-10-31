@@ -7,10 +7,9 @@ if !has('patch-8.1.1575')
   finish
 endif
 
-command! SwitchColor call colorschemes_settings#selectColorscheme()
-command! SwitchBack  call colorschemes_settings#selectBackGround()
-
-" let g:colorscheme_settings#colorrc_path
+if !exists('g:colorschemes_settings#use_default_colorschemes')
+  let g:colorschemes_settings#use_default_colorschemes = v:true
+endif
 
 let g:loaded_colorschemes_settings = 1
 let &cpo = s:save_cpo
