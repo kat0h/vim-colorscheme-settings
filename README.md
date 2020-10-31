@@ -4,6 +4,11 @@ Colorscheme switcher for Vim
 ## Function
 - Change colorschemes *interactive*.
 
+## NOTICE ⚠️
+This plugin is DEVELOPING now.
+You can use ```:SwitchColor``` command.
+I plan to complete this plugin in a few days
+
 ## How To Use
 
 ```:ColorSchemeSelect```  
