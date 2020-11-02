@@ -11,9 +11,7 @@ if !exists('g:colorschemes_settings#use_default_colorschemes')
   let g:colorschemes_settings#use_default_colorschemes = v:true
 endif
 
-command! SwitchColor call g:colorschemes_settings#switch_colorscheme(
-      \g:colorschemes_settings#use_default_colorschemes,
-      \)
+command! SwitchColor call g:colorschemes_settings#switch_colorscheme()
 
 let g:loaded_colorschemes_settings = 1
 let &cpo = s:save_cpo
