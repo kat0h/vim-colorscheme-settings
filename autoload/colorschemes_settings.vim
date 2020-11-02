@@ -12,7 +12,6 @@ endfunction
 function! s:switch_colorscheme(
       \use_default_colorschemes, callback=''
       \) abort
-  echo a:use_default_colorschemes
   let l:colorschemes = s:get_vim_colorschemes(a:use_default_colorschemes)
   let l:popup_var = #{
         \color_id: 0,
