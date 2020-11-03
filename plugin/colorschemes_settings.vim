@@ -10,6 +10,9 @@ endif
 if !exists('g:colorschemes_settings#use_default_colorschemes')
   let g:colorschemes_settings#use_default_colorschemes = v:true
 endif
+if !exists('g:colorschemes_settings#rc_file_path')
+  let g:colorschemes_settings#rc_file_path = ''
+endif
 
 command! SwitchColor call g:colorschemes_settings#switch_colorscheme()
 
