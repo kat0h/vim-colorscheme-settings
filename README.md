@@ -18,12 +18,12 @@ You can then confirm your selection with the Enter or Spacebar.
 Setting this flag to v: false will prevent the standard color scheme from being loaded
 
 
-```g:colorschemes_settings#rc_file_path```
+```g:colorschemes_settings#rc_file_path```  
 Specifies where the settings are saved when the colorscheme is changed  
 This path is not automatically expanded  
 Note that the file will be overwritten
   
-Example
+Example  
   ```let g:colorscheme_settings#colorrc_path = expand('~/.vim/colorrc.vim')```  
 If you want to set option when Vim starts. write this code to your .vimrc  
 ```
