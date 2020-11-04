@@ -14,7 +14,7 @@ if !exists('g:colorschemes_settings#rc_file_path')
   let g:colorschemes_settings#rc_file_path = ''
 endif
 
-command! SwitchColor call g:colorschemes_settings#switch_colorscheme()
+command! SwitchColorScheme call g:colorschemes_settings#switch_colorscheme()
 command! SwitchBackGround call g:colorschemes_settings#switch_background()
 
 let g:loaded_colorschemes_settings = 1
