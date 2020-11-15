@@ -37,10 +37,6 @@ endif
 ## ScreenShot
 ![screen](https://github.com/kato-k/assets/blob/master/render1603724148552.gif)  
 
-## Note
-My English is broken.  
-If you find any mistakes in the readme or document, please let me know.  
-
 ## License
 
 MIT  
