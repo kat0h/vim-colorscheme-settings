@@ -133,6 +133,20 @@ function! s:switch_background(
 endfunction
 
 function! g:colorschemes_settings#switch_background()
+  let l:nowcolor = s:get_colors_name()
+  let l:backgrounds = s:get_vim_backgrounds()
+
+  " check inversed background
+  execute "set background=" .. l:backgrounds[1]
+  let l:able_to_inverse = s:get_colors_name() ==# l:nowcolor
+  " restore background and colorscheme
+  execute "set background=" .. l:backgrounds[0]
+  execute "colorscheme " .. l:nowcolor
+
+  if ! l:able_to_inverse
+    echomsg "Cannot inverse background on " .. l:nowcolor
+    return
+  endif
   call s:switch_background(g:colorschemes_settings#rc_file_path)
 endfunction
 
