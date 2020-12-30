@@ -1,45 +1,46 @@
-*colorscheme_settings.txt*	Last change: 2020 Oct 24
+*colorscheme_settings.txt*                              Last change: 2020 Oct 24
 
 Select colorschemes like VSCode
 
-==============================================================================
+===============================================================================
 CONTENTS
   1. COMMANDS.....................................|colorscheme_settings_commans|
   2. ABOUT..........................................|colorscheme_settings_about|
   3. OPTIONS......................................|colorscheme_settings_options|
 
 
-==============================================================================
-COMMANDS	*colorscheme_settings_commans*
+===============================================================================
+COMMANDS        *colorscheme_settings_commans*
 
 *:SwitchColorscheme*
 *:SwitchBackGround*
 Like VS Code, you can change Vim's Colorscheme.
-You can select the Color scheme using J or K or the cursor keys.
-You can then confirm your selection with the Enter or Spacebar.
-==============================================================================
-OPTIONS	*colorscheme_settings_options*
+You  can  select  the  Color  scheme  using  J	or  K  or  the	cursor	 keys.
+You  can  then	confirm  your  selection   with   the	Enter	or   Spacebar.
+===============================================================================
+OPTIONS *colorscheme_settings_options*
 
 *g:colorschemes_settings#use_default_colorschemes*
-Setting this flag to v: false will prevent the standard color scheme from being loaded
+Setting this flag to v: false will prevent the standard color scheme from being
+loaded
 
 
 *g:colorschemes_settings#rc_file_path*
-Specifies where the settings are saved when the colorscheme is changed
+Specifies where the  settings  are  saved  when  the  colorscheme  is  changed
 This path is not automatically expanded
 Note that the file will be overwritten
 
 Example
-*let g:colorscheme_settings#colorrc_path = expand('~/.vim/colorrc.vim')*
-If you want to set option when Vim starts. write this code to your .vimrc
+*let   g:colorscheme_settings#colorrc_path   =	 expand('~/.vim/colorrc.vim')*
+If you want to set option when Vim starts.  write this	code  to  your	.vimrc
 
 let s:colorrcpath = expand('~/.vim/colorrc.vim')
 if filereadable(s:colorrcpath)
   execute "source" s:colorrcpath
 endif
 
-==============================================================================
-ABOUT	*colorscheme_settings_about*
+===============================================================================
+ABOUT   *colorscheme_settings_about*
 
 Author: Kota Kato github:kato-k
 Repository: https://github.com/kato-k/vim-colorscheme-settings
