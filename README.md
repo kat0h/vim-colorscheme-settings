@@ -21,7 +21,7 @@ Setting this flag to v: false will prevent the standard color scheme from being 
 ```g:colorschemes_settings#rc_file_path```  
 Specifies where the settings are saved when the colorscheme is changed  
 This path is not automatically expanded  
-Note that the file will be overwritten
+**Note** that the file will be overwritten
   
 Example  
   ```let g:colorscheme_settings#colorrc_path = expand('~/.vim/colorrc.vim')```  
