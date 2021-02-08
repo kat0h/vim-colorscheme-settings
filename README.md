@@ -35,7 +35,7 @@ endif
 
 
 ## ScreenShot
-![screen](https://github.com/kato-k/assets/blob/master/render1603724148552.gif)  
+![screen](https://github.com/kato-k/assets/blob/master/vim-colorscheme-settings.gif)  
 
 ## License
 
