@@ -42,4 +42,4 @@ endif
 MIT  
 
 ## Author
-Kota Kato a.k.a kato-k  
+Kota Kato a.k.a kat0h  
